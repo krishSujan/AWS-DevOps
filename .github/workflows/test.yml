@@ -33,5 +33,5 @@ jobs:
         
       - name: Get List of s3 buckets
         run: | 
-          aws ec2 describe-volumes --text
+          aws ec2 describe-volumes --output text
       
