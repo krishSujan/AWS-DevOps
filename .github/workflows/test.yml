@@ -34,6 +34,15 @@ jobs:
       - name: Get List of s3 buckets
         run: | 
           aws ec2 describe-volumes --output text
+     
+      - name: Sleep for 30 seconds
+        run: |
+           sleep 30s
+           shell: bash
+         
+      - name: Test echo and sleep time
+        run: |
+          echo "Hello World"
       
       - name: test 
         uses: actions/checkout@v3
