@@ -30,6 +30,8 @@ jobs:
           role-external-id: ${{ secrets.AWS_ROLE_EXTERNAL_ID }}
           role-duration-seconds: 1200
           role-session-name: Test_session
+    
+      - uses: actions/checkout@v3
         
       - name: Get List of s3 buckets
         run: | 
