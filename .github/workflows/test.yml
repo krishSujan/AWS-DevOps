@@ -47,6 +47,7 @@ jobs:
           echo "Hello World"
           pwd
           ls -lart
+          sh test.sh
       
 
       
