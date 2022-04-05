@@ -68,7 +68,7 @@ jobs:
       - name: Test AMI id
         run: | 
           echo "${{env.AMI_ID_2}}"
-          aws ec2 run-instances --image-id "${{env.AMI_ID_2}}" --instance-type t2.micro --key-name Test-Key
+          aws ec2 run-instances --image-id "${{env.AMI_ID_2}}" --instance-type t2.micro --key-name Test-Key --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=amazon-envSQL-1}]'
          
            
           
