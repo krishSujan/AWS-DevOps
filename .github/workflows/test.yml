@@ -38,10 +38,12 @@ jobs:
       - name: Get Account number
         run: | 
           echo "ACCOUNT_ID=$(aws sts get-caller-identity --query "Account" --output text)" >> $GITHUB_ENV
+      - name: get Account ID:
+        run: |
+          echo "${{env.ACCOUNT_ID}}"
       - name: Copy image
         run: | 
-          echo "${{env.AMI_ID}}"
-          echo "${{env.ACCOUNT_ID}}"
+          echo "${{env.AMI_ID}}"       
           aws ec2 modify-image-attribute --region us-east-2 --image-id "${{env.AMI_ID}}" --launch-permission "Add=[{UserId=276166459503}]"
 
       - name: Wait for 60
