@@ -40,7 +40,7 @@ jobs:
       - name: Copy image
         run: | 
           echo "${{env.AMI_ID}}"
-          aws ec2 copy-image --source-region us-east-1 --name Test --source-image-id "${{env.AMI_ID}}" --region us-west-2 --description "SQL Image copied from staging account"
+          aws ec2 copy-image --source-region us-east-2 --name Test --source-image-id "${{env.AMI_ID}}" --region us-west-2 --description "SQL Image copied from staging account"
           
           
          
