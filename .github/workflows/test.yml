@@ -37,11 +37,30 @@ jobs:
       - name: Get the Image
         run: | 
           echo "AMI_ID=$(aws ec2 describe-images --region us-east-2 --filters 'Name=tag:Name,Values=Test' --query 'sort_by(Images, &CreationDate)[-1].[ImageId]' --output 'text')" >> $GITHUB_ENV
+          echo "ACCOUNT_ID=$(aws sts get-caller-identity --query "Account" --output text)" >> $GITHUB_ENV
       - name: Copy image
         run: | 
           echo "${{env.AMI_ID}}"
           aws ec2 modify-image-attribute --region us-east-2 --image-id "${{env.AMI_ID}}" --launch-permission "Add=[{UserId=276166459503}]"
-          
-          
+
+  job-2-Create_Instance:
+    runs-on: self-hosted
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Configure AWS credentials from Test account
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.NEW_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.NEW_AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-2
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          role-external-id: ${{ secrets.AWS_ROLE_EXTERNAL_ID }}
+          role-duration-seconds: 1200
+          role-session-name: Test_session
+      
+      - name: Create new ec2 instance
+	      run: |
+		      aws ec2 describe-images --region us-east-2 --image-ids "${{env.AMI_ID}}"          
          
       
