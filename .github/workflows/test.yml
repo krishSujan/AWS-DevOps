@@ -2,7 +2,7 @@
 
 name: Testing-job
 
-# Controls when the workflow will run
+# Controls when the workflow will run 
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
@@ -12,10 +12,13 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+env: 
+  AMI_ID: aws ec2 describe-images --filters 'Name=tag:Name,Values=Test' --query 'sort_by(Images, &CreationDate)[-2].[ImageId]' --output 'text'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
-job1:
-  AWS-access:
+jobs:
+  job-1:
+    AWS-access:
     runs-on: self-hosted
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -30,7 +33,7 @@ job1:
           role-external-id: ${{ secrets.AWS_ROLE_EXTERNAL_ID }}
           role-duration-seconds: 1200
           role-session-name: Test_session
-    
+      
       - uses: actions/checkout@v3
         
       - name: Get List of s3 buckets
@@ -48,6 +51,4 @@ job1:
           pwd
           ls -lart
           sh test.sh
-      
-
-      
+          echo "${{env.AMI_ID}}""
