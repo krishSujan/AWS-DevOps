@@ -38,8 +38,10 @@ jobs:
         run: | 
           echo "AMI_ID=$(aws ec2 describe-images --filters 'Name=tag:Name,Values=Test' --query 'sort_by(Images, &CreationDate)[-1].[ImageId]' --output 'text')" >> $GITHUB_ENV
           echo "${{env.AMI_ID}}"
+      - name: Test
+        run: | 
+          echo "${{env.AMI_ID}}"
           
-          sleep 60s
           
          
       
