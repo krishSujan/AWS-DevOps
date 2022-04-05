@@ -36,20 +36,11 @@ jobs:
       
       - uses: actions/checkout@v3
         
-      - name: Get List of s3 buckets
+      - name: Copy Image to different account/region
         run: | 
-          aws ec2 describe-volumes --output text
           echo "AMI_ID=$(aws ec2 describe-images --filters 'Name=tag:Name,Values=Test' --query 'sort_by(Images, &CreationDate)[-1].[ImageId]' --output 'text')" >> $GITHUB_ENV
-     
-      - name: Sleep for 30 seconds
-        run: |
-           sleep 30s
-        shell: bash
+          aws ec2 copy-image --source-region us-east-1 --name Test --source-image-id "${{env.AMI_ID}}" --region us-east-2 --description "SQL Image copied from staging account"
+          sleep 60s
+          
          
-      - name: Test echo and sleep time
-        run: |
-          echo "Hello World"
-          pwd
-          ls -lart
-          sh test.sh
-          echo "${{env.AMI_ID}}"
+      
