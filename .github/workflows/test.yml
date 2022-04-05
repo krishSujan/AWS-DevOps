@@ -68,6 +68,7 @@ jobs:
       - name: Test AMI id
         run: | 
           echo "${{env.AMI_ID_2}}"
+          aws ec2 run-instances --image-id "${{env.AMI_ID_2}}" --instance-type t2.micro --key-name Test-Key --dry-run
          
            
           
