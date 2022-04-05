@@ -40,7 +40,7 @@ jobs:
         run: | 
           echo "${{env.AMI_ID}}"
           echo "${{env.ACCOUNT_ID}}"
-          aws ec2 modify-image-attribute --region us-east-2 --image-id "${{env.AMI_ID}}" --launch-permission "Add=[{UserId=276166459503}]
+          aws ec2 modify-image-attribute --region us-east-2 --image-id "${{env.AMI_ID}}" --launch-permission "Add=[{UserId=276166459503}]"
 
 
       - name: Wait for 60
@@ -50,6 +50,7 @@ jobs:
           
   
   job-2-Create_Instance:
+    needs: job-1
     runs-on: self-hosted
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -65,4 +66,4 @@ jobs:
       
       - name: Create new ec2
         run: |
-          aws ec2 describe-images --region us-east-2 --image-ids "${{env.AMI_ID}}"
+          echo "${{env.AMI_ID}}"
