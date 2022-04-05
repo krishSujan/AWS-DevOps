@@ -63,6 +63,11 @@ jobs:
       
       - name: Create new ec2
         run: |
-          echo "${{env.AMI_ID}}"
+          echo "AMI_ID_2=$(aws ec2 describe-images --region us-east-2 --filters 'Name=name,Values=Test' --query 'sort_by(Images, &CreationDate)[-1].[ImageId]' --output 'text')" >> $GITHUB_ENV
+          
+      - name: Test AMI id
+        run: | 
+          echo "${{env.AMI_ID_2}}"
+         
            
           
