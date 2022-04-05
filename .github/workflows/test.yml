@@ -68,5 +68,5 @@ jobs:
       - name: Create new ec2
         run: |
           aws sts get-caller-identity --query "Account" --output text
-          ws ec2 describe-images --region us-east-2 --filters 'Name=tag:Name,Values=Test' --query 'sort_by(Images, &CreationDate)[-1].[ImageId]' --output 'text'
+          aws ec2 describe-images --region us-east-2 --filters 'Name=tag:Name,Values=Test' --query 'sort_by(Images, &CreationDate)[-1].[ImageId]' --output 'text'
           
