@@ -39,7 +39,7 @@ jobs:
           echo "AMI_ID=$(aws ec2 describe-images --region us-east-2 --filters 'Name=tag:Name,Values=Test' --query 'sort_by(Images, &CreationDate)[-1].[ImageId]' --output 'text')" >> $GITHUB_ENV
       - name: Copy image
         run: | 
-          echo "${{env.AMI_ID}}
+          echo "${{env.AMI_ID}}"
           aws ec2 modify-image-attribute --image-id "${{env.AMI_ID}}" --launch-permission "Add=[{UserId=276166459503}]"
           
           
