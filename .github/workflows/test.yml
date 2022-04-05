@@ -40,7 +40,7 @@ jobs:
           echo "ACCOUNT_ID=$(aws sts get-caller-identity --query "Account" --output text)" >> $GITHUB_ENV
       - name: get Account ID
         run: |
-          echo "${{env.ACCOUNT_ID}}"
+          echo $ACCOUNT_ID
       - name: Copy image
         run: | 
           echo "${{env.AMI_ID}}"       
