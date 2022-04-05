@@ -40,7 +40,7 @@ jobs:
       - name: Copy image
         run: | 
           echo "${{env.AMI_ID}}"
-          aws ec2 modify-image-attribute --image-id "${{env.AMI_ID}}" --launch-permission "Add=[{UserId=276166459503}]"
+          aws ec2 modify-image-attribute --region us-east-2 --image-id "${{env.AMI_ID}}" --launch-permission "Add=[{UserId=276166459503}]"
           
           
          
