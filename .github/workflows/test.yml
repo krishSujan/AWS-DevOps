@@ -50,4 +50,4 @@ jobs:
           pwd
           ls -lart
           sh test.sh
-          echo "${{env.AMI_ID}}""
+          echo "${{env.AMI_ID}}"
