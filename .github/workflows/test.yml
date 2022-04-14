@@ -76,7 +76,8 @@ jobs:
       - name: Get S3 list
         run: |
           aws s3 mb s3://${{env.S3_Bucket}}-${{env.PLATFORM}}
-      - name: |
+      - name: Create a file
+        run: |
            touch f1
       - name: Copy the file to S3. 
         run: |
