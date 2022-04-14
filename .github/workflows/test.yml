@@ -48,7 +48,7 @@ jobs:
        
       - name: S3 bucket obect download
         run: |
-           echo "S3_FILE=$(aws s3 ls test-apigateway-dr --recursive | sort | tail -n 1 | awk '{print $4}'" >> ${GITHUB_ENV}
+           echo "S3_FILE=$(aws s3 ls test-apigateway-dr --recursive | sort | tail -n 1 | awk '{print $4}')" >> ${GITHUB_ENV}
            
       - name: Test S3 env
         run: | 
