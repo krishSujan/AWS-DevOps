@@ -63,9 +63,9 @@ jobs:
     
       - name: Get S3 list
         run: |
-          echo ${{env.S3_Bucket}}-${{env.perf}}
+          #echo ${{env.S3_Bucket}}-${{env.perf}}
           #aws s3 ls
-          #aws s3 mb s3://${{env.S3_Bucket}}-${{env.perf}}
+          aws s3 mb s3://${{env.S3_Bucket}}-${{env.perf}}
          
            
           
