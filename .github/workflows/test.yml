@@ -6,9 +6,9 @@ name: Testing-job
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
+    branches: [ develop ]
   pull_request:
-    branches: [ main ]
+    branches: [ develop ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -34,11 +34,7 @@ jobs:
         
       - name: Get the Image
         run: | 
-          echo "AMI_ID=$(aws ec2 describe-images --region us-east-2 --filters 'Name=tag:Name,Values=Test' --query 'sort_by(Images, &CreationDate)[-1].[ImageId]' --output 'text')" >> $GITHUB_ENV
-      - name: Copy image
-        run: | 
-          echo "${{env.AMI_ID}}"       
-          aws ec2 modify-image-attribute --region us-east-2 --image-id "${{env.AMI_ID}}" --launch-permission "Add=[{UserId=276166459503}]"
+          aws s3 ls
 
       - name: Wait for 60
         run: | 
@@ -61,15 +57,9 @@ jobs:
           role-duration-seconds: 1200
           role-session-name: Test_session
       
-      - name: Create new ec2
+      - name: Get S3 list
         run: |
-          echo "AMI_ID_2=$(aws ec2 describe-images --region us-east-2 --filters 'Name=name,Values=Test' --query 'sort_by(Images, &CreationDate)[-1].[ImageId]' --output 'text')" >> $GITHUB_ENV
-          
-      - name: Test AMI id
-        run: | 
-          echo "${{env.AMI_ID_2}}"
-          aws ec2 run-instances --image-id "${{env.AMI_ID_2}}" --instance-type t2.micro --key-name Test-Key --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=amazon-envSQL-1}]'
-          sleep 90s
+          aws s3 ls
          
            
           
