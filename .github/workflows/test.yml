@@ -65,7 +65,7 @@ jobs:
         run: |
           #echo ${{env.S3_Bucket}}-${{env.perf}}
           #aws s3 ls
-          aws s3 mb s3://${{env.S3_Bucket}}-${{env.perf}}
+          aws s3 mb s3://${{env.S3_Bucket}}-${{env.PLATFORM}}
          
            
           
