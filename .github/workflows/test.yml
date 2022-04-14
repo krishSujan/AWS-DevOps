@@ -19,8 +19,7 @@ on:
 jobs:
   job-1:
     runs-on: self-hosted
-    env:
-      DATE: (date +%F)
+
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -38,6 +37,10 @@ jobs:
       - name: Get the Image
         run: | 
           aws s3 ls
+     
+      - name: set release date
+        run: |
+          echo "RELEASE_DATE=$(date --rfc-3339=date)" >> ${GITHUB_ENV} 
 
       - name: Wait for 60
         run: | 
