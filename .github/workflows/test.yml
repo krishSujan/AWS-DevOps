@@ -46,7 +46,8 @@ jobs:
    ## needs: job-1
     runs-on: self-hosted
     env:
-      S3_Bucket: s3-oes-bck-bucket001
+      S3_Bucket: s3-oes-bck-bucke001
+      PLATFORM: perf
       
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -59,12 +60,12 @@ jobs:
           aws-region: us-east-2
           role-duration-seconds: 1200
           role-session-name: Test_session
-      
+    
       - name: Get S3 list
         run: |
-          echo ${{env.S3_Bucket}}
+          echo ${{env.S3_Bucket}}-${{env.perf}}
           #aws s3 ls
-          aws s3 rb s3://${{env.S3_Bucket}}
+          #aws s3 mb s3://${{env.S3_Bucket}}-${{env.perf}}
          
            
           
