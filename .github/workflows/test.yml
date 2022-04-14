@@ -43,8 +43,11 @@ jobs:
           
   
   job-2-Create_Instance:
-    needs: job-1
+   ## needs: job-1
     runs-on: self-hosted
+    env:
+      S3_Bucket: s3-oes-bck-bucket001
+      
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -59,7 +62,9 @@ jobs:
       
       - name: Get S3 list
         run: |
-          aws s3 ls
+          echo ${{env.S3_Bucket}}
+          #aws s3 ls
+          #aws s3 mb s3://
          
            
           
