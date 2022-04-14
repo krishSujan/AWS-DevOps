@@ -45,6 +45,14 @@ jobs:
       - name: Wait for 60
         run: |
           echo ${{env.DATE}}
+       
+      - name: S3 bucket obect download
+        run: |
+           echo "S3_FILE=$(aws s3 ls test-apigateway-dr --recursive | sort | tail -n 1 | awk '{print $4}'" >> ${GITHUB_ENV}
+           
+      - name: Test S3 env
+        run: | 
+           echo ${{env.S3_FILE}}
                
   job-2-Create_Instance:
    ## needs: job-1
@@ -67,7 +75,9 @@ jobs:
     
       - name: Get S3 list
         run: |
-          aws s3 rb s3://${{env.S3_Bucket}}-${{env.PLATFORM}}
+          aws s3 mb s3://${{env.S3_Bucket}}-${{env.PLATFORM}}
+      - name: |
+           touch f1
       - name: Copy the file to S3. 
         run: |
           aws s3 cp s3://${{env.S3_Bucket}}-${{env.PLATFORM}}
