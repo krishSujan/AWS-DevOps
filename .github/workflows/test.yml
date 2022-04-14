@@ -55,7 +55,7 @@ jobs:
            aws s3 cp s3://test-apigateway-dr/${{env.S3_FILE}} ./new_file
                
   job-2-Create_Instance:
-   ## needs: job-1
+    needs: job-1
     runs-on: self-hosted
     env:
       S3_Bucket: s3-oes-bck
@@ -81,7 +81,8 @@ jobs:
            ls -lart
       - name: Copy the file to S3. 
         run: |
-          aws s3 cp s3://${{env.S3_Bucket}}-${{env.PLATFORM}}
+          ls
+          #aws s3 cp s3://${{env.S3_Bucket}}-${{env.PLATFORM}}
       - name: Wait for 60
         run: | 
           sleep 60s
